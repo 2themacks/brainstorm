@@ -1,10 +1,12 @@
 <template lang="html">
-  <div class="">
-    <button @click='logOut'>Log out</button><br />
-    <h1>Profile Page</h1>
-    <p>{{name}}</p>
-    <p>{{email}}</p>
-    <router-link to="/idea">go to ideas</router-link>
+  <div class="profile-container">
+    <h2 class="center-text">Profile Page</h2>
+    <p class="center-text">{{name}}</p>
+    <p  class="center-text">{{email}}</p>
+    <div class="center-text">
+      <router-link to="/idea" class="idea-link">go to ideas</router-link><br>
+      <button @click='logOut' class="button">Log out</button>
+    </div>
   </div>
 </template>
 
@@ -36,6 +38,3 @@ export default {
   }
 }
 </script>
-
-<style lang="css">
-</style>

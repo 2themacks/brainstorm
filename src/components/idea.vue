@@ -1,26 +1,26 @@
 <template lang="html">
   <div class="">
-    <h2>ideas for {{displayName}}</h2>
+    <h2>Ideas for {{displayName}}</h2>
     <div class="idea-list" v-for="idea in ideas" >
-      <h4>Title: {{idea.title}}</h4>
-      <p> Description:{{idea.description}}</p>
-      <p>key: {{idea['.key']}}</p>
+      <h4>{{idea.title}}</h4>
+      <p> Description: <br>{{idea.description}}</p>
+      <!-- <p>key: {{idea['.key']}}</p> -->
       <!-- <router-link to="/ideamap" @click="map">Go to this idea</router-link> -->
-      <router-link :to="{ path: '/ideamap/'+idea['.key'], component:'ideamap'}">edit/view idea</router-link>
+      <router-link :to="{ path: '/ideamap/'+idea['.key'], component:'ideamap'}" class="idea-link">edit/view idea</router-link>
 
     </div>
+    <div class="new-idea">
+      <h2 class="center-text">get started on a new idea</h2>
+      <form class="" action="index.html" method="post">
 
-    <h4>get started on a new idea</h4>
-    <form class="" action="index.html" method="post">
+        <label for="title">Idea Title</label><br>
+        <input type="text" id="title" value="" v-model="ideaObject.title"><br>
 
-      <label for="title">Idea Title</label>
-      <input type="text" id="title" value="" v-model="ideaObject.title">
-
-      <label for="description">Short description</label>
-      <input type="text" id="description" value="" v-model="ideaObject.description">
-      <button type="button" name="submit" @click="newIdea()">submit</button>
-    </form>
-
+        <label for="description">Short description</label><br>
+        <textarea type="text" id="description" value="" v-model="ideaObject.description"></textarea><br>
+        <button class="button" name="submit" @click="newIdea()">submit</button>
+      </form>
+    </div>
   </div>
 </template>
 

@@ -1,6 +1,7 @@
 <template lang="html">
   <div class="">
     <h2>Register for an account</h2>
+    <p class='center-text'>To start brainstorming some ideas, register or sign in to your account below.</p>
     <div id="firebaseui-auth-container"></div>
   </div>
 </template>
@@ -27,5 +28,3 @@ export default {
   }
 }
 </script>
-<style lang="css">
-</style>
