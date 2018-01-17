@@ -3,8 +3,7 @@
     <h2 class="center-text">{{heading}}</h2>
     <h4 class="center-text">Add a step to your idea</h4>
     <form class="center-text" action="index.html" method="post">
-      <textarea type="text" name="step" v-model="step.description"></textarea>
-      <p>{{step.description}}</p>
+      <textarea type="text" name="step" v-model="step.description"></textarea><br>
       <button type="button" name="step" @click="newStep()">submit</button>
     </form>
     <div class="center-text">
@@ -13,23 +12,21 @@
     </div>
     <div class="steps-div">
       <h4>steps</h4>
-      <!-- <ul v-for="step in idea.steps">
-        <li>{{step.description}}</li>
-      </ul> -->
       <draggable v-model="steps">
         <transition-group name="steps-list">
             <div class='step' v-for="(step, index) in steps" :key="step['.key']" :class="{primary: step.distinction}">
-                <p v-model="step.order" >{{step.description}}</p>
+                <p v-show="!editing" v-model="step.order" >{{step.description}}</p>
+                <textarea v-show="editing" v-model="step.description">{{step.description}}</textarea>
                 <div class="step-buttons">
-                  <i class="material-icons" name="edit" @click="editStep">border_color</i>
-                  <i class="material-icons" name="delete" @click="deleteStep">delete</i>
-                  <button name="distinction" @click="distinction">primary</button>
+                  <i class="material-icons" name="edit" @click="editStep(step)" v-show="!editing">border_color</i>
+                  <i class="material-icons" v-show="editing" @click="editStep(step)">check_circle</i>
+                  <i class="material-icons" name="delete" @click="deleteStep(step)">delete</i>
+                  <button name="distinction" @click="distinction(step)">primary</button>
                 </div>
-
             </div>
         </transition-group>
       </draggable>
-      <button name="order" @click="saveOrder()">save order</button>
+      <button name="order" @click="saveOrder()">save changes</button>
     </div>
 
   </div>
@@ -59,7 +56,8 @@ data(){
       order: ""
     },
     steps:[],
-    isPrimary: true
+    isPrimary: true,
+    editing: false
   }
 },
 components: {
@@ -68,22 +66,22 @@ components: {
 methods: {
   newStep: function(){
     console.log('adding this step');
+    this.step.order = this.steps.length++;
+
     let currentIdea = idea.child(this.uid + '/' + this.$route.params.key);
     currentIdea.child('steps').push(this.step);
+
+    this.$bindAsArray('steps', config.db.ref(this.uid + '/' + this.$route.params.key + '/steps'), null, function() {
+      this.steps = _.orderBy(this.steps, 'order');
+    })
+    this.step.order = '';
+    this.step.description = '';
   },
-  // saveOrder: function(step){
-  //   console.log('save this order')
-  //   this.steps.forEach(function(step, index){
-  //     step.order = index
-  //   });
-  //   delete steps['.key']
-  //   this.idea.steps(['.key']).set(step.order)
-  // },
   saveOrder: function(){
    console.log('save this order')
    let _this = this;
    this.steps.forEach(function(step, index){
-     step = {...step} //this is weird?
+     step = {...step}
      let newKey = step['.key']
      delete step['.key']
      step.order = index;
@@ -94,20 +92,18 @@ methods: {
   editStep: function(){
     console.log('edit this step');
     //turn steps into input fields and show save button
-
+    this.editing=!this.editing
   },
-  deleteStep: function(){
+  deleteStep: function(step){
     console.log('delete this step');
-    let _this = this
-    console.log(_this.$firebaseRefs.steps.child(step['.key']))
-    // this.$firebaseRefs.steps.child(key).remove()
-    // let currentIdea = idea.child(this.uid + '/' + this.$route.params.key);
-    // console.log(this.steps['.key'])
+    this.$firebaseRefs.steps.child(step['.key']).remove()
+    this.$bindAsArray('steps', config.db.ref(this.uid + '/' + this.$route.params.key + '/steps'), null, function() {
+      this.steps = _.orderBy(this.steps, 'order');
+    })
   },
-  distinction: function(){
+  distinction: function(step){
     console.log('toggle class');
-    console.log(this.steps[0].distinction)
-
+    step.distinction = !step.distinction
   }
 },
 created(){
