@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <h1 class='header'>{{ msg }}</h1>
+    <router-link to="/">
+      <h1 class='header'>{{msg}}</h1>
+    </router-link>
     <router-link to="/register" class="nav-link">Register or Log In</router-link>
     <router-link to="/profile" class="nav-link">My Profile</router-link>
     <router-view></router-view>
@@ -23,27 +25,62 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
   margin-top: 10px;
 }
+.idea-list-container{
+  box-sizing: border-box;
+}
+.idea-list{
+  margin-left: 0em;
+  width: 70%;
+  padding: 2em;
+  border-left: solid 3px #13294C;
+}
+
+//LINK STYLING
 .nav-link {
   float: right;
-  text-decoration: none;
-  background-color: lightGrey;
-  padding: 1em;
-  color: white;
+  letter-spacing: .05em;
+  text-transform: lowercase;
+  margin-right: 1em;
+  margin-top: 1em;
+  padding: .5em
 }
 .idea-link {
-  text-decoration: none;
-  background-color: lightGrey;
-  padding: 1em;
-  color: white;
   margin: 1em auto;
+  color: #1F2328;
+  font-size: 1.2em;
+  padding: .5em
+}
+a:hover {
+  background-color: #F9E561;
+  // background-color: #FFA921;
+}
+a, a:visited {
+  text-decoration: none;
+  color: #1F2328;
+  letter-spacing: .05em;
+}
+.layout-container {
+  box-sizing: border-box;
+  display: flex;
+}
+.left-side{
+  padding: 1em;
+  width: 40%;
+}
+.right-side{
+  width: 60%;
 }
 .button{
   margin: 1.5em auto;
+  padding: .5em 1.5em;
+  background-color: #97A09E;
+  color: #FAFAFB;
+  letter-spacing: .05em;
 }
-.step-buttons{
+
+.step-buttons {
   float: right;
   display: inline;
   margin: auto;
@@ -52,7 +89,7 @@ export default {
   font-family: 'Material Icons';
   font-weight: normal;
   font-style: normal;
-  font-size: 24px;  /* Preferred icon size */
+  font-size: 20px;  /* Preferred icon size */
   display: inline-block;
   line-height: 1;
   text-transform: none;
@@ -72,51 +109,67 @@ export default {
   /* Support for IE. */
   font-feature-settings: 'liga';
 }
+.delete-icon {
+  float: right;
+}
 .new-idea{
-  background-color: white;
   padding: 1em;
   margin: auto;
-  width: 50%;
+  width: 80%;
 }
-.header{
+.header {
+  letter-spacing: .1em;
+  font-size: 3em;
+  background-color: #C0E0DE;
+  box-shadow: -5px -5px #F9E561;
+  margin: .5em;
+}
+.sub-heading {
+  background-color: #F9E561;
+  margin: auto;
+  display: inline;
+  letter-spacing: .1em;
+}
+.heading{
+  font-weight: 600;
   letter-spacing: .05em;
+  text-transform: uppercase;
 }
 .center-text {
   text-align: center;
   margin: 1em auto;
 }
-
-.profile-container{
-
+.profile-box{
+  width: 80%;
 }
 body {
-  background-color: lightGrey;
+  background-color: #FDFDFD;
 }
-a:hover {
-  background-color: white;
-  color: grey;
-}
-
 h1 {
   font-weight: normal;
   display: inline;
+  margin: auto;
 }
 h2 {
   margin: auto;
-  text-align: center;
   font-weight: normal;
+}
+h4 {
+  text-transform: uppercase;
+}
+p{
+  line-height: 1.5em;
 }
 div {
   margin: 1em auto;
 }
 .steps-div {
   margin: auto;
-  width: 80%;
-  border: solid 1px;
+  width: 100%;
   padding: 1em;
+  border-left: solid 3px #13294C;
 }
 .step {
-  background-color: #F3E8EE;
   width: 80%;
   padding: 1em;
 }
@@ -124,7 +177,8 @@ div {
   display: inline;
 }
 .primary {
-  border: solid 2px;
   margin-left: 15px;
+  background-color: #C0E0DE;
 }
+
 </style>

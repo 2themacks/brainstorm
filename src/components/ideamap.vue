@@ -1,33 +1,42 @@
 <template lang="html">
-  <div class="">
-    <h2 class="center-text">{{heading}}</h2>
-    <h4 class="center-text">Add a step to your idea</h4>
-    <form class="center-text" action="index.html" method="post">
-      <textarea type="text" name="step" v-model="step.description"></textarea><br>
-      <button type="button" name="step" @click="newStep()">submit</button>
-    </form>
-    <div class="center-text">
-      <h2>{{idea.title}}</h2>
-      <p>description: {{idea.description}}</p>
+  <div class="layout-container">
+    <div class="left-side">
+      <div class="">
+        <h2 class="sub-heading">{{idea.title}}</h2>
+        <p>description: {{idea.description}}</p>
+      </div>
+
+      <form class="idea-list">
+        <h4 class="">Add a step to your idea</h4>
+        <textarea type="text" name="step" v-model="step.description"></textarea><br>
+        <button type="button" name="step" @click="newStep()">submit</button>
+      </form>
     </div>
-    <div class="steps-div">
-      <h4>steps</h4>
-      <draggable v-model="steps">
-        <transition-group name="steps-list">
-            <div class='step' v-for="(step, index) in steps" :key="step['.key']" :class="{primary: step.distinction}">
-                <p v-show="!editing" v-model="step.order" >{{step.description}}</p>
-                <textarea v-show="editing" v-model="step.description">{{step.description}}</textarea>
-                <div class="step-buttons">
-                  <i class="material-icons" name="edit" @click="editStep(step)" v-show="!editing">border_color</i>
-                  <i class="material-icons" v-show="editing" @click="editStep(step)">check_circle</i>
-                  <i class="material-icons" name="delete" @click="deleteStep(step)">delete</i>
-                  <button name="distinction" @click="distinction(step)">primary</button>
-                </div>
-            </div>
-        </transition-group>
-      </draggable>
-      <button name="order" @click="saveOrder()">save changes</button>
+    <div class="right-side">
+
+      <div class="steps-div">
+        <h2 class="sub-heading">steps needed to accomplish it</h2>
+        <p>directions here</p>
+        <draggable v-model="steps">
+          <transition-group name="steps-list">
+              <div class='step' v-for="(step, index) in steps" :key="step['.key']" :class="{primary: step.distinction}">
+                  <i class="material-icons">drag_handle</i>
+                  <p v-show="!editing" v-model="step.order" >{{step.description}}</p>
+                  <textarea v-show="editing" v-model="step.description">{{step.description}}</textarea>
+                  <div class="step-buttons">
+                    <i class="material-icons" name="edit" @click="editStep(step)" v-show="!editing">border_color</i>
+                    <i class="material-icons" v-show="editing" @click="editStep(step)">check_circle</i>
+                    <i class="material-icons" name="delete" @click="deleteStep(step)">delete</i>
+                    <button name="distinction" @click="distinction(step)">primary</button>
+                  </div>
+              </div>
+          </transition-group>
+        </draggable>
+        <button name="order" @click="saveOrder()">save changes</button>
+      </div>
     </div>
+
+
 
   </div>
 </template>

@@ -1,12 +1,16 @@
 <template lang="html">
-  <div class="">
+  <div class="ideas">
     <h2>Ideas for {{displayName}}</h2>
+    <div class="idea-list-container">
     <div class="idea-list" v-for="idea in ideas" >
       <h4>{{idea.title}}</h4>
       <p> Description: <br>{{idea.description}}</p>
       <!-- <p>key: {{idea['.key']}}</p> -->
       <!-- <router-link to="/ideamap" @click="map">Go to this idea</router-link> -->
       <router-link :to="{ path: '/ideamap/'+idea['.key'], component:'ideamap'}" class="idea-link">edit/view idea</router-link>
+      <i class="material-icons" name="delete" @click="deleteIdea(idea)">delete</i>
+
+    </div>
 
     </div>
     <div class="new-idea">
@@ -65,6 +69,10 @@ export default {
         description: this.ideaObject.description,
         steps: this.ideaObject.steps
       })
+    },
+    deleteIdea: function (idea){
+      console.log('delete this idea');
+      this.$firebaseRefs.ideas.child(idea['.key']).remove()
     }
   },
   created() {
@@ -81,11 +89,3 @@ export default {
   }
 }
 </script>
-<style media="screen">
-  .idea-list{
-    border: solid 1px;
-    margin: 1em auto;
-    width: 40%;
-    padding: 1em;
-  }
-</style>
