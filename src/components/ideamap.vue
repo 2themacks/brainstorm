@@ -11,12 +11,14 @@
         <textarea type="text" name="step" v-model="step.description"></textarea><br>
         <button type="button" name="step" @click="newStep()">submit</button>
       </form>
+      <h4>TIPS:</h4>
+      <p>You can drag and drop each step to put them in the order you choose. If you would like to make a step primary distinction, click the primary button. You can also edit steps by toggling on the pencil icon, and delete steps by clicking on the trashcan. Be sure to click the "save" button at the bottom to save changes.</p>
     </div>
     <div class="right-side">
 
       <div class="steps-div">
         <h2 class="sub-heading">steps needed to accomplish it</h2>
-        <p>directions here</p>
+
         <draggable v-model="steps">
           <transition-group name="steps-list">
               <div class='step' v-for="(step, index) in steps" :key="step['.key']" :class="{primary: step.distinction}">

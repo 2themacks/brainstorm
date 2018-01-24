@@ -22,15 +22,15 @@
 
       </div>
     </div>
-    <div class="ideas">
+    <div class="right-side">
       <div class="idea-list-container">
         <h2 class="sub-heading">idea list</h2>
       <div class="idea-list" v-for="idea in ideas" >
         <h4>{{idea.title}}</h4>
         <p>{{idea.description}}</p>
-        <!-- <p>key: {{idea['.key']}}</p> -->
-        <!-- <router-link to="/ideamap" @click="map">Go to this idea</router-link> -->
-        <router-link :to="{ path: '/ideamap/'+idea['.key'], component:'ideamap'}" class="idea-link">view idea</router-link>
+        <div class="idea-link">
+          <router-link :to="{ path: '/ideamap/'+idea['.key'], component:'ideamap'}" class="">view idea</router-link>
+        </div>
         <i class="material-icons delete-icon" name="delete" @click="deleteIdea(idea)">delete</i>
 
       </div>
